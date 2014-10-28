@@ -1,6 +1,5 @@
 
 
-import java.awt.Point;
 import java.util.Random;
 
 /**
@@ -15,10 +14,12 @@ public class MineField {
     private boolean shown[][];
     private int totalMines;
     private int flagsLanded;
+    private int side;
     
     
     
     public MineField(int sideLength, int numberOfMines){
+    	side = sideLength;
         board = new int[sideLength][sideLength];
         shown = new boolean[sideLength][sideLength];
         flagged = new boolean[sideLength][sideLength];
@@ -94,7 +95,18 @@ public class MineField {
     public boolean getFlaggedStatus(int x, int y) {
         return flagged[x][y];
     }
-    
+    public int getSideLength(){
+    	return side;
+    }
+    public boolean[][] getShown(){
+    	return shown;
+    }
+    public boolean[][] getFlagged(){
+    	return flagged;
+    }
+    public int[][] getBoard(){
+    	return board;
+    }
     
     //changing the status of positions on the board
     public void setFlag(int x, int y) {
@@ -105,9 +117,18 @@ public class MineField {
             flagsLanded--;
     }
     public void show(int x, int y){
+    	if (x < 0 || x >= side || y < 0 || y >= side)
+    		return;
         shown[x][y] = true;
     }
     
+    public boolean isShown(int x, int y){
+    	return shown[x][y];
+    }
+    
+    public boolean isFlagged(int x, int y){
+    	return flagged[x][y];
+    }
     
     public boolean checkForWinner(){
         /*
@@ -137,7 +158,12 @@ public class MineField {
         return true;
     }
     
-    
+    public void loadGame(int gameBoard[][], boolean flags[][], boolean show[][]){
+    	board = gameBoard;
+    	shown = show;
+    	flagged = flags;
+    	side = board.length;
+    }
     
     
     

@@ -21,13 +21,16 @@ public class MineFrame extends JFrame implements ActionListener {
     public static final int EASY = 12;
     public static final int MEDIUM = 20;
     public static final int HARD = 28;
+    public static final int SMALL = 10;
+    public static final int NORMAL = 12;
+    public static final int LARGE = 16;
     
     public MineFrame(){
-        setSize(500, 500);
+        setSize(700, 700);
         setTitle("Minesweeper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        panel = new MinePanel();
+        panel = new MinePanel(LARGE, HARD);
         menuBar = new JMenuBar();
         file = new JMenu("file");
         save = new JMenuItem("save");
@@ -54,13 +57,18 @@ public class MineFrame extends JFrame implements ActionListener {
         EASY, MEDIUM, HARD
     };
     
+    public enum Size {
+    	SMALL, NORMAL, LARGE
+    };
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == save) {
         	System.out.println("save");
+        	panel.save();
         } else if (e.getSource() == load) {
             System.out.println("load");
+            panel.load();
         } else if (e.getSource() == newGame) {
-            panel.resetMineField(12, HARD);
+            panel.resetMineField(15, EASY);
             System.out.println("new game");
         } else if (e.getSource() == quit) {
             System.exit(0);

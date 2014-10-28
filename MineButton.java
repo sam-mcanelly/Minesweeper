@@ -1,5 +1,7 @@
 
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 /**
@@ -8,7 +10,11 @@ import javax.swing.JButton;
  * CWID: 11533007
  */
 public class MineButton extends JButton {
-    private boolean isMine = false;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private boolean isMine = false;
     private boolean isFlagged = false;
     private int x;
     private int y;
@@ -22,21 +28,25 @@ public class MineButton extends JButton {
     
     //getters and setters
     public void setMineStatus(boolean status){
-        this.isMine = status;
+        isMine = status;
     }
     
     public void setFlag(){    
         if (!isFlagged && !this.getText().equals("" + minesTouching) ){
+        	setForeground(Color.BLACK);
             setText("F");
         }
         else if(!this.getText().equals("" + minesTouching)) {
             setText("");
+            setMineColor();
         }
         isFlagged = !isFlagged;
     }
-    public boolean blow(int x, int y){
-        setText("" + minesTouching);
-        return isMine;
+    public void blow(){
+    	if (isMine)
+    		setText("M");
+    	else
+    		setText("" + minesTouching);
     }
     
     public boolean getFlaggedStatus(){
@@ -51,7 +61,19 @@ public class MineButton extends JButton {
     public int getMinesTouching(){
         return minesTouching;
     }
+    
+    private void setMineColor(){
+    	if (minesTouching <= 2 && !isMine)
+    		this.setForeground(Color.GREEN);
+    	else if (minesTouching > 2 && minesTouching <= 4 && !isMine)
+    		this.setForeground(new Color(255, 140, 0));
+    	else if (minesTouching > 4 && minesTouching <= 9 && !isMine)
+    		this.setForeground(Color.RED);
+
+    }
+    
     public void setMinesTouching(int mines){
         minesTouching = mines;
+        setMineColor();
     }
 }
