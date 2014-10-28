@@ -107,17 +107,22 @@ public class MinePanel extends JPanel {
     		inputFile = load.getSelectedFile();
     	BufferedReader reader;
     	String line;
-    	int[][] board = mainField.getBoard();
-		boolean[][] flagged = mainField.getFlagged();
-		boolean[][] shown = mainField.getShown();
+    	//initializing them so the compiler won't complain to me
+    	int[][] board = new int[20][20];
+		boolean[][] flagged = new boolean[20][20];
+		boolean[][] shown = new boolean[20][20];
     	int i = 0;
     	int j = 0;
     	try {
     		reader = new BufferedReader(new FileReader(inputFile));
     		while ((line = reader.readLine()) != null) {
+    			if (i == 0) {
+    				board = new int[line.length()][line.length()];
+    				flagged = new boolean[line.length()][line.length()];
+    				shown = new boolean[line.length()][line.length()];
+    			}
     			if (i < line.length()) {
     				j = 0;
-    				System.out.println(i);
     				for (char c: line.toCharArray()) {
     					if (j > board.length - 1)
     						break;
@@ -126,7 +131,6 @@ public class MinePanel extends JPanel {
     				}	
     			} else if (i < line.length() * 2 && i > line.length() - 1){
     				j = 0;
-    				System.out.println(i);
     				for(char c: line.toCharArray()){
     					if (j > board.length - 1)
     						break;
@@ -138,7 +142,6 @@ public class MinePanel extends JPanel {
     				}
     			} else if (i < line.length() * 3 && i > line.length() * 2 - 1) {
     				j = 0;
-    				System.out.println(i);
     				for(char c: line.toCharArray()){
     					if (j > board.length - 1)
     						break;
@@ -161,10 +164,9 @@ public class MinePanel extends JPanel {
     	} finally {
     		
     	}
-    	
     	mainField.loadGame(board, flagged, shown);
-    	loadButtons(mainField.getSideLength());
-    	showFlaggedAndShown(mainField.getSideLength());
+    	loadButtons(board[0].length);
+    	showFlaggedAndShown(board[0].length);
     }
     
     public void loadButtons(int side){

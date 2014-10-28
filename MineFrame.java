@@ -11,9 +11,16 @@ import java.awt.event.*;
  */
 public class MineFrame extends JFrame implements ActionListener {
     
-    private JMenuItem save;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JMenuItem save;
     private JMenuItem load;
-    private JMenuItem newGame;
+    private JMenu newGame;
+    private JMenuItem easy;
+    private JMenuItem medium;
+    private JMenuItem hard;
     private JMenuItem quit;
     private JMenuBar menuBar;
     private JMenu file;
@@ -35,18 +42,27 @@ public class MineFrame extends JFrame implements ActionListener {
         file = new JMenu("file");
         save = new JMenuItem("save");
         load = new JMenuItem("load");
-        newGame = new JMenuItem("new");
+        newGame = new JMenu("new");
+        easy = new JMenuItem("easy");
+        medium = new JMenuItem("medium");
+        hard = new JMenuItem("hard");
         quit = new JMenuItem("quit");
         
         save.addActionListener(this);
         load.addActionListener(this);
-        newGame.addActionListener(this);
+        easy.addActionListener(this);
+        medium.addActionListener(this);
+        hard.addActionListener(this);
         quit.addActionListener(this);
         
         file.add(save);
         file.add(load);
         file.add(newGame);
         file.add(quit);
+        
+        newGame.add(easy);
+        newGame.add(medium);
+        newGame.add(hard);
         
         menuBar.add(file);
         this.setJMenuBar(menuBar);
@@ -62,14 +78,15 @@ public class MineFrame extends JFrame implements ActionListener {
     };
     public void actionPerformed(ActionEvent e){
         if (e.getSource() == save) {
-        	System.out.println("save");
         	panel.save();
         } else if (e.getSource() == load) {
-            System.out.println("load");
             panel.load();
-        } else if (e.getSource() == newGame) {
-            panel.resetMineField(15, EASY);
-            System.out.println("new game");
+        } else if (e.getSource() == easy) {
+            panel.resetMineField(SMALL, EASY);
+        } else if (e.getSource() == medium) {
+            panel.resetMineField(NORMAL, MEDIUM);
+        } else if (e.getSource() == hard) {
+            panel.resetMineField(LARGE, HARD);
         } else if (e.getSource() == quit) {
             System.exit(0);
         }

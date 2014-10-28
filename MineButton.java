@@ -64,7 +64,7 @@ public class MineButton extends JButton {
     
     private void setMineColor(){
     	if (minesTouching <= 2 && !isMine)
-    		this.setForeground(Color.GREEN);
+    		this.setForeground(new Color(32, 135, 25));
     	else if (minesTouching > 2 && minesTouching <= 4 && !isMine)
     		this.setForeground(new Color(255, 140, 0));
     	else if (minesTouching > 4 && minesTouching <= 9 && !isMine)

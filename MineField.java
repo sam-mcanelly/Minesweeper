@@ -162,7 +162,7 @@ public class MineField {
     	board = gameBoard;
     	shown = show;
     	flagged = flags;
-    	side = board.length;
+    	side = board[0].length;
     }
     
     
